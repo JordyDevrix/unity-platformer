@@ -14,6 +14,8 @@ public class NewPlayerMovement : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rb;
 
+    private float rollTimer = 0f;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -32,7 +34,7 @@ public class NewPlayerMovement : MonoBehaviour
         // Walking mechanics
         float Horizontal = Input.GetAxisRaw("Horizontal");
 
-        rb.AddForce(new Vector2(Horizontal * MoveForce, 0f), ForceMode2D.Force);
+        rb.AddForce(new Vector2(Horizontal * MoveForce * (Time.deltaTime * 1000), 0f), ForceMode2D.Force);
 
         // Character flipping
         if (Horizontal != 0)
@@ -46,6 +48,11 @@ public class NewPlayerMovement : MonoBehaviour
             jumpCooldownTimer -= Time.deltaTime;
         }
 
+        if (rollTimer > 0f)
+        {
+            rollTimer -= Time.deltaTime;
+        }
+
         if (Input.GetButtonDown("Jump") && IsGrounded && jumpCooldownTimer <= 0f)
         {
             rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
@@ -53,17 +60,35 @@ public class NewPlayerMovement : MonoBehaviour
         }
 
         // Jumping animation bools
-        if (rb.linearVelocity.y > 0.1)
+        if (rb.linearVelocity.y > 0.2)
         {
             animator.SetBool("Jumping", true);
             animator.SetBool("Falling", false);
         }
-        else if (rb.linearVelocity.y < 0.1)
+        else if (rb.linearVelocity.y < 0.2)
         {
             animator.SetBool("Falling", true);
             animator.SetBool("Jumping", false);
         }
 
+        // Roll animation
+        if (Input.GetKey(KeyCode.E))
+        {
+            animator.SetBool("Roll", true);
+            rollTimer = 0.1f;
+
+        }
+        else if (rollTimer <= 0)
+        {
+            animator.SetBool("Roll", false);
+        }
+
+        if (IsGrounded == true)
+        {
+            animator.SetBool("Falling", false);
+            animator.SetBool("Jumping", false);
+        }
+        Debug.Log(animator.GetBool("Roll"));
         animator.SetFloat("Speed", Mathf.Abs(Horizontal));
         animator.SetFloat("LinearVelocity", Mathf.Abs(rb.linearVelocity.x));
 
