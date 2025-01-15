@@ -14,7 +14,7 @@ TagManager:
   - UI
   - Ground
   - Wall
-  - 
+  - Neon
   - 
   - 
   - 
@@ -41,6 +41,27 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: 1Background
+    uniqueID: 548118395
+    locked: 0
+  - name: 2FarMountains
+    uniqueID: 3199881799
+    locked: 0
+  - name: 3CloseMountains
+    uniqueID: 1786299307
+    locked: 0
+  - name: 4Trees
+    uniqueID: 1453086819
+    locked: 0
+  - name: 5Walls
+    uniqueID: 665236967
+    locked: 0
+  - name: 6Floor
+    uniqueID: 3344108533
+    locked: 0
+  - name: 7Player
+    uniqueID: 1173501221
     locked: 0
   m_RenderingLayers:
   - Default

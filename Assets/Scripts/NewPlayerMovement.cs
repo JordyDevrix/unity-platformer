@@ -76,7 +76,6 @@ public class NewPlayerMovement : MonoBehaviour
         {
             animator.SetBool("Roll", true);
             rollTimer = 0.1f;
-
         }
         else if (rollTimer <= 0)
         {
@@ -88,7 +87,6 @@ public class NewPlayerMovement : MonoBehaviour
             animator.SetBool("Falling", false);
             animator.SetBool("Jumping", false);
         }
-        Debug.Log(animator.GetBool("Roll"));
         animator.SetFloat("Speed", Mathf.Abs(Horizontal));
         animator.SetFloat("LinearVelocity", Mathf.Abs(rb.linearVelocity.x));
 
